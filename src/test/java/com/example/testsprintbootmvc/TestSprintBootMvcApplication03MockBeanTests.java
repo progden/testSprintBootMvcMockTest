@@ -1,45 +1,34 @@
 package com.example.testsprintbootmvc;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import javax.annotation.Resource;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @SpringBootTest(classes = TestSprintBootMvcApplication.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-class TestSprintBootMvcApplicationMockTests {
-
+@AutoConfigureMockMvc
+class TestSprintBootMvcApplication03MockBeanTests {
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
     MockMvc mvc;
 
-    @Autowired
-    @Qualifier("mm")
+    @MockBean
     private MessageService msgSvc;
-
-    @BeforeEach
-    public void setup() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
 
     @Test
     void assertMockMvcNotNull() {
@@ -48,6 +37,7 @@ class TestSprintBootMvcApplicationMockTests {
 
     @Test
     void givenMockedMsgService_assetCallControllerSuccess() throws Exception {
+        // Controller -> mock Service
         // Arrange
         String uri = "/";
         when(msgSvc.getMessage()).thenReturn("Test");

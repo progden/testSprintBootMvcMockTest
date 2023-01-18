@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
-class TestSprintBootMvcApplicationTests {
+class TestSprintBootMvcApplication01Tests {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -35,6 +35,7 @@ class TestSprintBootMvcApplicationTests {
 
     @Test
     void assetCallControllerSuccess() throws Exception {
+        // Controller -> Service
         // Arrange
         String uri = "/";
 
