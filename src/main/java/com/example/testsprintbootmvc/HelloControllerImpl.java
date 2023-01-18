@@ -1,5 +1,19 @@
-package com.example.testsprintbootmvc;public class HelloControllerImpl implements com.example.testsprintbootmvc.HelloController{	public HelloControllerImpl()	{	}@java.lang.Override
-    @org.springframework.web.bind.annotation.RequestMapping("/")
-    public java.lang.String hello() {
-        return "Hey, Spring Boot & Hello world.";
-    }}
+package com.example.testsprintbootmvc;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@AllArgsConstructor
+public class HelloControllerImpl implements HelloController {
+    private MessageService msgService;
+
+    @RequestMapping("/")
+    public String hello() {
+        return msgService.getMessage();
+    }
+
+}
